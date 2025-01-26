@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SquirrelCannon.Models.Subject>
+
+<div class="container">
+
+	<h2>Select a Subject</h2>
+
+	<div class="row">
+
+		@foreach (var subject in Model)
+		{
+			<div class="col-md-4 mb-4">
+			
+				<div class="card">
+				
+					<div class="card-body">
+						<h5 class="card-title">@subject.Title</h5>
+						@* <p class="card-text">@subject.Description</p> *@
+
+						<a asp-controller="Flashcard"
+							asp-action="Index"
+							asp-route-subjectId="@subject.Id"
+							class="btn btn-primary">
+								Start Review
+						</a>
+
+				    </div>
+				
+				</div>
+			
+			</div>
+		}
+
+	</div>
+
+</div>

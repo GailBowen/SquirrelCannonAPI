@@ -1,0 +1,23 @@
+Get the @section Scripts working - done.
+
+Get a squirrel icon
+
+Diff between Razor and MVC
+
+
+Check understand how it all works.
+
+Check out to a new folder and check it builds. Update-Database?
+
+Allow user to add own cards.
+
+Tell user how many correct today
+
+Give user a choice of which folder to use
+
+Tell user how long taken
+
+Scoreboard
+
+Separate users
+

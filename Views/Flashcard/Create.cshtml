@@ -1,0 +1,30 @@
+﻿@model SquirrelCannon.ViewModels.FlashcardViewModel
+
+<h2>Create New Flashcard</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Flashcard", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Question)
+        @Html.TextBoxFor(m => m.Question, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Answer)
+        @Html.TextBoxFor(m => m.Answer, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SubjectId)
+        @Html.DropDownListFor(m => m.SubjectId, Model.Subjects, "Select a subject", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+}

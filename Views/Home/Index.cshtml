@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Squirrel Cannon</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Start Learning</h5>
+                    <p class="card-text">Review your flashcards and track your progress.</p>
+                    <a asp-controller="Subjects" asp-action="Index" class="btn btn-primary">Go to Subjects</a>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Create Flashcards</h5>
+                    <p class="card-text">Add new flashcards to your collection.</p>
+                    <a asp-controller="Flashcard" asp-action="Create" class="btn btn-success">Create Flashcard</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Smart Review System</h5>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <p class="card-text">
+                                Based on the Leitner system, Squirrel Cannon's spaced repetition algorithm organizes your flashcards into learning boxes.
+                                Cards move between boxes based on your performance - correct answers advance to higher boxes with longer review intervals,
+                                while missed cards return to the first box for more frequent practice. Once you've got a card right six times, it's considered learnt
+                                and you won't see it again.
+                            </p>
+                        </div>
+                    </div>
+					<div class="mt-3">
+						<img src="~/images/icons8-squirrel-94.png" />
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

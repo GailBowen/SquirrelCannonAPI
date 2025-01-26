@@ -1,0 +1,24 @@
+﻿<div class="d-flex justify-content-center flex-column align-items-center">
+    <div class="spinner-border text-primary mb-3"
+         style="width: 3rem; height: 3rem;"
+         role="status">
+        <span class="sr-only">Loading...</span>
+        <br />
+    </div>
+
+    <div class="alert alert-info text-center">
+        <h4>Database Warming Up</h4>
+        <br /> 
+        <p>
+            As this is a development environment using a serverless database,
+            initial startup may take a minute. <br /> <br />Please wait...
+        </p>
+    </div>
+</div>
+
+<script>
+    setTimeout(function() {
+        window.location.reload();
+    }, 15000);
+</script>
+

@@ -1,0 +1,62 @@
+﻿
+
+@model IEnumerable<SquirrelCannon.Models.Flashcard>
+
+<div class="container">
+    <h2>Today's Flashcards</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No cards to review today!
+        </div>
+    }
+    else
+    {
+        <div id="progress" class="mb-3">
+            Card <span id="currentCardNumber">1</span> of <span id="totalCards">@Model.Count()</span>
+        </div>
+
+        <div id="flashcard-deck">
+        @foreach (var card in Model)
+        {
+            <div class="card mb-3 flashcard-container" data-answer="@card.Answer.ToLower()">
+                <div class="card-body">
+                    <h5 class="card-title">@card.Question</h5>
+
+                    <div class="answer-section">
+                        <div class="mb-3">
+                            <input type="text" class="form-control answer-input" placeholder="Type your answer here">
+                            <button class="btn btn-primary mt-2 check-answer">Check Answer</button>
+                        </div>
+
+                        <div class="answer-result" style="display:none;">
+                            <div class="correct-answer" style="display:none;">
+                                <p class="text-success">Correct! The answer is: @card.Answer</p>
+                            </div>
+                            <div class="wrong-answer" style="display:none;">
+                                <p class="text-danger">Incorrect. The correct answer is: @card.Answer</p>
+                            </div>
+
+                            <div class="response-buttons">
+                                <form asp-action="Review" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@card.Id" />
+                                    <input type="hidden" name="correct" class="correct-flag" value="false" />
+                                    <button type="submit" class="btn btn-primary next-card">Next Card →</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+
+
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/flashcards.js" asp-append-version="true"></script>
+}
