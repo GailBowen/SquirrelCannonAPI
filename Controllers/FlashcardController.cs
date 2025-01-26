@@ -1,18 +1,14 @@
-﻿// File: /Controllers/FlashcardController.cs
+﻿using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SquirrelCannon.Data;
 using SquirrelCannon.Models;
-using SquirrelCannon.ViewModels;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SquirrelCannon.Controllers
 {
-    public class FlashcardController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class FlashcardController : ControllerBase
     {
         private readonly FlashcardContext _context;
 
@@ -21,7 +17,8 @@ namespace SquirrelCannon.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int subjectId)
+        [HttpGet("review/{subjectId}")]
+        public async Task<IActionResult> GetCardstoReview(int subjectId)
         {
             var today = DateTime.Today;
             var cards = await _context.Flashcards
@@ -32,20 +29,18 @@ namespace SquirrelCannon.Controllers
                 .Where(c => (today - c.LastReview).Days >=
                 GetNextReviewInterval(c.Box)).ToList();
 
-            ViewBag.SubjectId = subjectId;
-
-            return View(cardsToReview);
+            return Ok(cardsToReview);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Review(int id, bool correct)
+        [HttpPost("review")]
+        public async Task<IActionResult> Review([FromBody] ReviewModel model)
         {
-            var card = await _context.Flashcards.FindAsync(id);
+            var card = await _context.Flashcards.FindAsync(model.Id);
             if (card == null) return NotFound();
 
-            if (correct && card.Box < 5)
+            if (model.Correct && card.Box < 5)
                 card.Box++;
-            else if (!correct)
+            else if (!model.Correct)
                 card.Box = 1;
 
             card.LastReview = DateTime.Today;
@@ -54,29 +49,17 @@ namespace SquirrelCannon.Controllers
             return Ok();
         }
 
-        public IActionResult Create()
-        {
-            var viewModel = new FlashcardViewModel
-            {
-                Subjects = _context.Subjects.Select(s => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.Title
-                }).ToList()
-            };
-            return View(viewModel);
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Create(FlashcardViewModel viewModel)
+        public async Task<IActionResult> Create([FromBody] FlashcardModel model)
         {
             if (ModelState.IsValid)
             {
                 var flashcard = new Flashcard
                 {
-                    Question = viewModel.Question,
-                    Answer = viewModel.Answer,
-                    SubjectId = viewModel.SubjectId,
+                    Question = model.Question,
+                    Answer = model.Answer,
+                    SubjectId = model.SubjectId,
                     Box = 1,
                     LastReview = new DateTime(2024, 1, 1)
                 };
@@ -84,22 +67,11 @@ namespace SquirrelCannon.Controllers
                 _context.Flashcards.Add(flashcard);
                 await _context.SaveChangesAsync();
 
-                // Add success message
-                TempData["SuccessMessage"] = "Flashcard added successfully!";
+                return Ok(flashcard);
 
-                // Clear the form
-                ModelState.Clear();
-                viewModel = new FlashcardViewModel();
             }
 
-            // Repopulate the Subjects list
-            viewModel.Subjects = _context.Subjects.Select(s => new SelectListItem
-            {
-                Value = s.Id.ToString(),
-                Text = s.Title
-            }).ToList();
-
-            return View(viewModel);
+            return BadRequest(ModelState);
         }
 
 
@@ -112,5 +84,21 @@ namespace SquirrelCannon.Controllers
             5 => 14,
             _ => 1
         };
+
     }
-}
+
+        public class ReviewModel
+        { 
+            public int Id { get; set; }
+            public bool Correct { get; set; }
+        }
+
+        public class FlashcardModel
+        {
+            public string Question { get; set; }
+            public string Answer { get; set; }
+            public int SubjectId { get; set; }
+
+        }
+     }
+

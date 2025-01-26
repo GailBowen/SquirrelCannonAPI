@@ -4,7 +4,9 @@ using SquirrelCannon.Data;
 
 namespace SquirrelCannon.Controllers
 {
-    public class SubjectsController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class SubjectsController : ControllerBase
     {
         private readonly FlashcardContext _context;
 
@@ -12,31 +14,32 @@ namespace SquirrelCannon.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index() {
+        [HttpGet]
+        public async Task<IActionResult> GetSubjects() {
 
             try
             {
                 var subjects = await _context.Subjects.ToListAsync();
 
-                return View(subjects);
+                return Ok(subjects);
                 
             }
             catch (Exception)
             {
-
-                return View("Loading");
+                return StatusCode(500, "An error occurred while fetching subjects.");
             }
         
         }
 
-        public async Task<IActionResult> Details(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSubject(int id)
         {
             var subject = await _context.Subjects.FirstOrDefaultAsync(s => s.Id == id);
 
             if (subject == null)
                 return NotFound();
 
-            return View(subject);
+            return Ok(subject);
         }
 
     }

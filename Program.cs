@@ -3,33 +3,45 @@ using SquirrelCannon.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Change this line from AddRazorPages to AddControllersWithViews
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<FlashcardContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+     builder => builder
+     .WithOrigins("http://localhost:3000")
+     .AllowAnyMethod()
+     .AllowAnyHeader());
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowReactApp");
 app.UseAuthorization();
 
-// Remove these lines as they're Razor Pages specific
-// app.MapStaticAssets();
-// app.MapRazorPages()
-//    .WithStaticAssets();
-
-// Update the default route to use Home controller
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
+  
 
 app.Run();
