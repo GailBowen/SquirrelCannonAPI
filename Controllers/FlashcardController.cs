@@ -86,6 +86,21 @@ namespace SquirrelCannon.Controllers
             return Ok(stats);
         }
 
+        [HttpGet("box-stats/{subjectId}")]
+        public IActionResult GetBoxStats(int subjectId)
+        {
+
+            var stats = _context.Flashcards
+                .Where(c => c.SubjectId == subjectId)
+                .GroupBy(f => f.Box)
+                .Select(g => new { Box = g.Key, Count = g.Count() })
+                .OrderBy(x => x.Box)
+                .ToList();
+
+            return Ok(stats);
+        }
+
+
         private int GetNextReviewInterval(int box) => box switch
         {
             1 => 1,
