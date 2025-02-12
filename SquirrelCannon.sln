@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelCannon", "SquirrelCannon.csproj", "{08187A40-6C60-46CB-BF4A-5B3FC4B1DC82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquirrelCannon.Tests", "SquirrelCannon.Tests\SquirrelCannon.Tests.csproj", "{69B776E2-7031-A24A-7A7D-34E71B6F9322}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{08187A40-6C60-46CB-BF4A-5B3FC4B1DC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08187A40-6C60-46CB-BF4A-5B3FC4B1DC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08187A40-6C60-46CB-BF4A-5B3FC4B1DC82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B776E2-7031-A24A-7A7D-34E71B6F9322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B776E2-7031-A24A-7A7D-34E71B6F9322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B776E2-7031-A24A-7A7D-34E71B6F9322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B776E2-7031-A24A-7A7D-34E71B6F9322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {77737372-9CE7-4D28-893A-1C656F0143E0}
 	EndGlobalSection
 EndGlobal

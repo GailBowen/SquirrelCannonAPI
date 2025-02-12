@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SquirrelCannon.Tests\**" />
+    <Content Remove="SquirrelCannon.Tests\**" />
+    <EmbeddedResource Remove="SquirrelCannon.Tests\**" />
+    <None Remove="SquirrelCannon.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
