@@ -13,3 +13,5 @@
 /.vs/ProjectEvaluation
 /.vs/SquirrelCannon/v17/DocumentLayout.backup.json
 /bin/Release/net9.0
+/SquirrelCannon.Tests/bin/Debug/net9.0
+/SquirrelCannon.Tests/obj
