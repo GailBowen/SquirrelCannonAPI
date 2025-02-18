@@ -79,7 +79,7 @@ namespace SquirrelCannon.Controllers
 
             var stats = _context.Flashcards
                 .GroupBy(f => f.Box)
-                .Select(g => new { Box = g.Key, Count = g.Count() })
+                .Select(g => new BoxStat { Box = g.Key, Count = g.Count() })
                 .OrderBy(x => x.Box)
                 .ToList();
 

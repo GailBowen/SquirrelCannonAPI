@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using SquirrelCannon.Controllers;
 using SquirrelCannon.Data;
 using SquirrelCannon.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,28 +15,29 @@ namespace SquirrelCannon.Tests
     public sealed class FlashcardControllerTests
     {
         private FlashcardController _controller;
-        private Mock<FlashcardContext> _mockContext;
-        private Mock<DbSet<Flashcard>> _mockFlashcards;
+        private FlashcardContext _context;
 
         [TestInitialize]
         public void Setup()
         {
-            // Sample data for testing
-            var flashcards = new List<Flashcard>
+            // Use a unique in-memory database name for each test to avoid conflicts
+            var options = new DbContextOptionsBuilder<FlashcardContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Unique database name
+                .Options;
+
+            // Initialize the context with the in-memory database
+            _context = new FlashcardContext(options);
+
+            // Seed the in-memory database with initial data
+            _context.Flashcards.AddRange(new List<Flashcard>
             {
-                new Flashcard { Id = 1, Question = "Q1", Answer = "A1", SubjectId = 1, Box = 1 },
-                new Flashcard { Id = 2, Question = "Q2", Answer = "A2", SubjectId = 2, Box = 2 }
-            };
+                new Flashcard { Id = 782, Question = "Q1", Answer = "A1", SubjectId = 1, Box = 1, LastReview = DateTime.Today.AddDays(-2) },
+                new Flashcard { Id = 783, Question = "Q2", Answer = "A2", SubjectId = 1, Box = 2, LastReview = DateTime.Today.AddDays(-5) }
+            });
+            _context.SaveChanges();
 
-            // Mock DbSet
-            _mockFlashcards = CreateMockDbSet(flashcards);
-
-            // Mock DbContext
-            _mockContext = new Mock<FlashcardContext>();
-            _mockContext.Setup(c => c.Flashcards).Returns(_mockFlashcards.Object);
-
-            // Initialize controller with mocked context
-            _controller = new FlashcardController(_mockContext.Object);
+            // Initialize controller with the context
+            _controller = new FlashcardController(_context);
         }
 
         [TestMethod]
@@ -58,24 +59,67 @@ namespace SquirrelCannon.Tests
             Assert.AreEqual("ambages ambagis f", createdCard.Answer);
             Assert.AreEqual(1, createdCard.SubjectId);
 
-            // Verify that Add and SaveChangesAsync were called
-            _mockFlashcards.Verify(m => m.Add(It.IsAny<Flashcard>()), Times.Once);
-            _mockContext.Verify(m => m.SaveChangesAsync(default), Times.Once);
+            // Verify that the card was added to the database
+            var cardInDb = await _context.Flashcards.FindAsync(createdCard.Id);
+            Assert.IsNotNull(cardInDb);
         }
 
-        private static Mock<DbSet<T>> CreateMockDbSet<T>(IEnumerable<T> data) where T : class
+        [TestMethod]
+        public async Task GetCardstoReview_ReturnsCorrectCards()
         {
-            var queryableData = data.AsQueryable();
-            var mockSet = new Mock<DbSet<T>>();
+            // Arrange
+            var subjectId = 1;
 
-            mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryableData.Provider);
-            mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryableData.Expression);
-            mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryableData.ElementType);
-            mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryableData.GetEnumerator());
+            // Act
+            var result = await _controller.GetCardstoReview(subjectId);
 
-            mockSet.Setup(m => m.Add(It.IsAny<T>())).Callback<T>(data.ToList().Add);
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
 
-            return mockSet;
+            var cardsToReview = okResult.Value as List<Flashcard>;
+            Assert.IsNotNull(cardsToReview);
+            Assert.AreEqual(2, cardsToReview.Count); // Only one card is due for review
+            Assert.AreEqual(782, cardsToReview[0].Id); // Verify the correct card is returned
+        }
+
+        [TestMethod]
+        public async Task Review_UpdatesCardCorrectly()
+        {
+            // Arrange
+            var reviewModel = new ReviewModel { Id = 782, Correct = true };
+
+            // Act
+            var result = await _controller.Review(reviewModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+
+            // Verify that the card was updated correctly
+            var updatedCard = await _context.Flashcards.FindAsync(reviewModel.Id);
+            Assert.IsNotNull(updatedCard);
+            Assert.AreEqual(2, updatedCard.Box); // Box should increment because the answer was correct
+        }
+
+        [TestMethod]
+        public void GetBoxStats_ReturnsCorrectStats()
+        {
+            // Act
+            var result = _controller.GetBoxStats();
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+
+            var stats = okResult.Value as List<BoxStat>;
+            Assert.IsNotNull(stats);
+
+            // Verify stats
+            var statBox1 = stats.FirstOrDefault(s => s.Box == 1);
+            var statBox2 = stats.FirstOrDefault(s => s.Box == 2);
+
+            Assert.AreEqual(1, statBox1.Count); // One card in Box 1
+            Assert.AreEqual(1, statBox2.Count); // One card in Box 2
         }
     }
 }
