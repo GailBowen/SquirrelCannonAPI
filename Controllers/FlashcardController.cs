@@ -75,9 +75,16 @@ namespace SquirrelCannon.Controllers
         }
 
         [HttpGet("box-stats")]
-        public IActionResult GetBoxStats() {
+        public IActionResult GetBoxStats(bool todayOnly = false) {
 
-            var stats = _context.Flashcards
+            var query = this._context.Flashcards.AsQueryable();
+
+            if (todayOnly)
+            {
+                query = query.Where(c => c.LastReview.Date == DateTime.Now.Date);
+            }
+
+            var stats = query
                 .GroupBy(f => f.Box)
                 .Select(g => new BoxStat { Box = g.Key, Count = g.Count() })
                 .OrderBy(x => x.Box)
@@ -87,11 +94,16 @@ namespace SquirrelCannon.Controllers
         }
 
         [HttpGet("box-stats/{subjectId}")]
-        public IActionResult GetBoxStats(int subjectId)
+        public IActionResult GetBoxStats(int subjectId, bool todayOnly = false)
         {
+            var query = _context.Flashcards.Where(s => s.SubjectId == subjectId);
 
-            var stats = _context.Flashcards
-                .Where(c => c.SubjectId == subjectId)
+            if (todayOnly) {
+
+                query = query.Where(d => d.LastReview.Date == DateTime.Now.Date);
+            }
+
+            var stats = query
                 .GroupBy(f => f.Box)
                 .Select(g => new { Box = g.Key, Count = g.Count() })
                 .OrderBy(x => x.Box)
