@@ -13,7 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b177fc9-9131-43b0-abdb-ab5e56457e3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Models/FlashcardReview.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SquirrelCannon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SquirrelCannon/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/FlashcardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FlashcardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +30,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://C:/Users/gailb/Documents/Code/SquirrelCannonAPI/SquirrelCannonAPI/Controllers/SubjectsController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/gailb/Documents/Code/SquirrelCannonAPI/SquirrelCannonAPI/Data/FlashcardContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/gailb/Documents/Code/SquirrelCannonAPI/SquirrelCannonAPI/Migrations/20250108083023_AddDefaultValues.Designer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/gailb/Documents/Code/SquirrelCannonAPI/SquirrelCannonAPI/Models/Flashcard.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/gailb/Documents/Code/SquirrelCannonAPI/SquirrelCannonAPI/Program.cs" root0="SKIP_HIGHLIGHTING" />
@@ -44,7 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.SquirrelCannon: http.executor": "Debug",
+    ".NET Launch Settings Profile.SquirrelCannon: http.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -145,8 +148,17 @@
       <option name="presentableId" value="Default" />
       <updated>1745081923736</updated>
       <workItem from="1745081925774" duration="38000" />
-      <workItem from="1745153334158" duration="3194000" />
+      <workItem from="1745153334158" duration="5798000" />
     </task>
+    <task id="LOCAL-00001" summary="Create FlashcardReview table">
+      <option name="closed" value="true" />
+      <created>1745156827824</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1745156827824</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +189,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Create FlashcardReview table" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create FlashcardReview table" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

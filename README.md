@@ -34,3 +34,7 @@ appsettings.Development.json:
 
 
 https://localhost:44363/flashcard
+
+dotnet ef migrations add AddFlashcardReview
+
+dotnet ef database update

@@ -38,17 +38,41 @@ namespace SquirrelCannon.Controllers
             var card = await _context.Flashcards.FindAsync(model.Id);
             if (card == null) return NotFound();
 
+            // Update flashcard state
             if (model.Correct && card.Box < 5)
                 card.Box++;
             else if (!model.Correct)
                 card.Box = 1;
 
             card.LastReview = DateTime.Today;
+
+            // Insert into FlashcardReview
+            var review = new FlashcardReview
+            {
+                FlashcardId = model.Id,
+                ReviewedAt = DateTime.UtcNow, // Use UTC for consistency
+                WasCorrect = model.Correct
+                // UserId can be added later
+            };
+            _context.FlashcardReviews.Add(review);
+
             await _context.SaveChangesAsync();
 
             return Ok();
         }
+        
+        [HttpGet("today/correct-count")]
+        public async Task<ActionResult<int>> GetTodaysCorrectCount()
+        {
+            var today = DateTime.UtcNow.Date;
+            var tomorrow = today.AddDays(1);
 
+            int count = await _context.FlashcardReviews
+                .Where(r => r.WasCorrect && r.ReviewedAt >= today && r.ReviewedAt < tomorrow)
+                .CountAsync();
+
+            return Ok(count);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] FlashcardModel model)
