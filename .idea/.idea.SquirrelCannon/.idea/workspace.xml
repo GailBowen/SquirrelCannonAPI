@@ -12,7 +12,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b177fc9-9131-43b0-abdb-ab5e56457e3c" name="Changes" comment="" />
+    <list default="true" id="8b177fc9-9131-43b0-abdb-ab5e56457e3c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SquirrelCannon/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SquirrelCannon/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,24 +44,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.SquirrelCannon: http.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "CorrectToday",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.SquirrelCannon: http.executor&quot;: &quot;Run&quot;,
+    &quot;Azure - Web App.Azure - Web App: SquirrelCannon SquirrelCannonAPI.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Publish to IIS.SquirrelCannon: SquirrelCannonAPI - Zip Deploy.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.SquirrelCannon: http">
+}</component>
+  <component name="RunManager" selected="Azure - Web App.Azure - Web App: SquirrelCannon SquirrelCannonAPI">
+    <configuration name="Azure - Web App: SquirrelCannon SquirrelCannonAPI" type="AzureWebAppDeploy">
+      <option name="appServicePlanName" value="SquirrelCannonHostingPlan" />
+      <option name="appServicePlanResourceGroupName" value="SquirrelCannonRG" />
+      <option name="operatingSystem" value="Windows" />
+      <option name="pricingSize" value="F1" />
+      <option name="pricingTier" value="Free" />
+      <option name="projectConfiguration" value="Release" />
+      <option name="projectPlatform" value="Any CPU" />
+      <option name="publishableProjectPath" value="$PROJECT_DIR$/SquirrelCannon.csproj" />
+      <option name="region" value="uksouth" />
+      <option name="resourceGroupName" value="SquirrelCannonPlusAPI" />
+      <option name="subscriptionId" value="827afefc-6ba1-4a3e-a1b6-1eb717021e52" />
+      <option name="webAppName" value="SquirrelCannonAPI" />
+      <method v="2" />
+    </configuration>
     <configuration name="SquirrelCannon: SquirrelCannonAPI - Zip Deploy" type="DotNetMsBuildPublish" factoryName="Publish to IIS">
       <riderPublish configuration="Release" platform="Any CPU" publish_profile="SquirrelCannonAPI - Zip Deploy.pubxml" pubxml_path="$PROJECT_DIR$/Properties/PublishProfiles/SquirrelCannonAPI - Zip Deploy.pubxml" uuid_high="583350568859223755" uuid_low="-4662814134747669374" />
       <method v="2" />
@@ -145,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745081923736</updated>
       <workItem from="1745081925774" duration="38000" />
-      <workItem from="1745153334158" duration="6152000" />
+      <workItem from="1745153334158" duration="7813000" />
     </task>
     <task id="LOCAL-00001" summary="Create FlashcardReview table">
       <option name="closed" value="true" />
@@ -163,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745159793910</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add workspace file.">
+      <option name="closed" value="true" />
+      <created>1745159936578</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745159936578</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +223,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Create FlashcardReview table" />
     <MESSAGE value="Add GetTodaysCorrectCount()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add GetTodaysCorrectCount()" />
+    <MESSAGE value="Add workspace file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add workspace file." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

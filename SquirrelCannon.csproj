@@ -11,6 +11,7 @@
     <Content Remove="SquirrelCannon.Tests\**" />
     <EmbeddedResource Remove="SquirrelCannon.Tests\**" />
     <None Remove="SquirrelCannon.Tests\**" />
+    <None Remove="Properties\PublishProfiles\SquirrelCannonAppService - Web Deploy.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
