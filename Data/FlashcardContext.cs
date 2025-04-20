@@ -15,6 +15,8 @@ namespace SquirrelCannon.Data
 
         public virtual DbSet<Flashcard> Flashcards { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
+        
+        public DbSet<FlashcardReview> FlashcardReviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

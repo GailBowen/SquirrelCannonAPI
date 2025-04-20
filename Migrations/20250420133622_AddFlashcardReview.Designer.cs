@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SquirrelCannon.Data;
 
@@ -11,9 +12,11 @@ using SquirrelCannon.Data;
 namespace SquirrelCannon.Migrations
 {
     [DbContext(typeof(FlashcardContext))]
-    partial class FlashcardContextModelSnapshot : ModelSnapshot
+    [Migration("20250420133622_AddFlashcardReview")]
+    partial class AddFlashcardReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,30 +61,6 @@ namespace SquirrelCannon.Migrations
                     b.ToTable("Flashcards");
                 });
 
-            modelBuilder.Entity("SquirrelCannon.Models.FlashcardReview", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FlashcardId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReviewedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("WasCorrect")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlashcardId");
-
-                    b.ToTable("FlashcardReviews");
-                });
-
             modelBuilder.Entity("SquirrelCannon.Models.Subject", b =>
                 {
                     b.Property<int>("Id")
@@ -112,17 +91,6 @@ namespace SquirrelCannon.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("SquirrelCannon.Models.FlashcardReview", b =>
-                {
-                    b.HasOne("SquirrelCannon.Models.Flashcard", "Flashcard")
-                        .WithMany()
-                        .HasForeignKey("FlashcardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flashcard");
                 });
 #pragma warning restore 612, 618
         }

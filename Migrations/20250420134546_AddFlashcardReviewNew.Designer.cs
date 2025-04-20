@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SquirrelCannon.Data;
 
@@ -11,9 +12,11 @@ using SquirrelCannon.Data;
 namespace SquirrelCannon.Migrations
 {
     [DbContext(typeof(FlashcardContext))]
-    partial class FlashcardContextModelSnapshot : ModelSnapshot
+    [Migration("20250420134546_AddFlashcardReviewNew")]
+    partial class AddFlashcardReviewNew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
